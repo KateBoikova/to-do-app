@@ -1,31 +1,60 @@
 import { put } from 'redux-saga/effects';
-import ACTION_TYPES from '../actions/actionTypes';
+import {
+  createTaskError,
+  createTaskRequest,
+  createTaskSuccess,
+  deleteTaskError,
+  deleteTaskRequest,
+  deleteTaskSuccess,
+  getTasksError,
+  getTasksRequest,
+  getTasksSuccess,
+  updateTaskError,
+  updateTaskRequest,
+  updateTaskSuccess,
+} from '../actions';
 import * as API from '../api';
 
-export function * createTaskAction () {
-  yield put({ type: ACTION_TYPES.CREATE_TASK_ACTION });
+export function * getTasksSaga () {
+  yield put(getTasksRequest());
   try {
-    const { data: tasks } = yield API.createTask();
+    const { data: tasks } = yield API.getTasks();
+    yield put(getTasksSuccess(tasks));
   } catch (e) {
-    yield put({ type: ACTION_TYPES.CREATE_TASK_ERROR });
+    yield put(getTasksError(e));
+  }
+}
+export function * createTaskSaga (action) {
+  const { task } = action;
+  yield put(createTaskRequest(task));
+  try {
+    const { data: newTask } = yield API.createTask(task);
+    yield put(createTaskSuccess(newTask));
+  } catch (e) {
+    yield put(createTaskError(e));
   }
 }
 
-export function * updateTaskAction () {
-  yield put({type: ACTION_TYPES.UPDATE_TASK_ACTION});
+export function * updateTaskSaga (action) {
+  const { id } = action;
+  yield put(updateTaskRequest());
   try {
-    const 
+    const { data: updatedTask } = yield API.updateTask(id);
+    yield put(updateTaskSuccess(updatedTask));
   } catch (e) {
-    yield put({type: ACTION_TYPES.UPDATE_TASK_ERROR});
+    yield put(updateTaskError(e));
   }
 }
 
-export function * deleteTaskAction () {
-  yield put({type: ACTION_TYPES.DELETE_TASK_ACTION});
+export function * deleteTaskSaga (action) {
+  const { id } = action;
+  yield put(deleteTaskRequest());
   try {
-    const
+    const { data: deletedTask } = yield API.deleteTask(id);
+    yield put(deleteTaskSuccess(deletedTask));
   } catch (e) {
-    yield put({type: ACTION_TYPES.DELETE_TASK_ERROR})
+    yield put(deleteTaskError(e));
   }
-
 }
+
+export function * changeThemeSaga () {}

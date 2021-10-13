@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CONSTANTS from '../../constants';
 import styles from './ToDoPage.module.scss';
 import ToDoForm from './../../components/forms/ToDoForm';
@@ -38,4 +39,4 @@ const mapStateToProps = state => state.todo;
 const mapDispatchToProps = dispatch => {
   return { changeTheme: () => dispatch(changeThemeAction()) };
 };
-export default ToDoPage;
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoPage);
