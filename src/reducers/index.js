@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import toDoReducer from './toDoReducer';
-import toDoThemeReducer from './themeReducer';
+import themeReducer from './themeReducer';
 
 const rootReducer = combineReducers({
   todo: toDoReducer,
-  theme: toDoThemeReducer,
+  theme: themeReducer,
 });
 
 export default rootReducer;

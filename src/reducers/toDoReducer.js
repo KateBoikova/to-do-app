@@ -60,13 +60,14 @@ function ToDoReducer (state = initialState, action) {
       return { ...state, isFetching: true, error: null };
     }
     case ACTION_TYPES.UPDATE_TASK_SUCCESS: {
-      const { task } = action;
+      const { updatedTask } = action;
       const { tasks } = state;
-      const updatedTask = task;
+      const index = tasks.findIndex(t => t.id === updatedTask.id);
+      tasks[index] = updatedTask;
       return {
         ...state,
         isFetching: true,
-        tasks: [...tasks, updatedTask],
+        tasks: [...tasks],
       };
     }
     case ACTION_TYPES.UPDATE_TASK_ERROR: {
@@ -82,17 +83,17 @@ function ToDoReducer (state = initialState, action) {
       return { ...state, isFetching: true, error: null };
     }
     case ACTION_TYPES.DELETE_TASK_SUCCESS: {
-      const { deletedTask } = action;
+      const { id } = action;
       const { tasks } = state;
-      const newTasks = [...tasks];
-      newTasks.splice(
-        newTasks.findIndex(t => t.id === deletedTask.id),
+      tasks.splice(
+        tasks.findIndex(t => t.id === id),
         1
       );
       return {
         ...state,
         isFetching: false,
         error: null,
+        tasks: [...tasks],
       };
     }
     case ACTION_TYPES.DELETE_TASK_ERROR: {

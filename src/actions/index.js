@@ -37,9 +37,9 @@ export const createTaskError = e => ({
   error: e,
 });
 
-export const updateTaskAction = task => ({
+export const updateTaskAction = id => ({
   type: ACTION_TYPES.UPDATE_TASK_ACTION,
-  task,
+  id,
 });
 
 export const updateTaskRequest = () => ({
@@ -56,17 +56,18 @@ export const updateTaskError = error => ({
   error,
 });
 
-export const deleteTaskAction = task => ({
+export const deleteTaskAction = id => ({
   type: ACTION_TYPES.DELETE_TASK_ACTION,
-  task,
+  id,
 });
 
 export const deleteTaskRequest = () => ({
   type: ACTION_TYPES.DELETE_TASK_REQUEST,
 });
 
-export const deleteTaskSuccess = deletedTask => ({
+export const deleteTaskSuccess = id => ({
   type: ACTION_TYPES.DELETE_TASK_SUCCESS,
+  id,
 });
 
 export const deleteTaskError = error => ({
@@ -77,4 +78,18 @@ export const deleteTaskError = error => ({
 export const changeThemeAction = theme => ({
   type: ACTION_TYPES.CHANGE_THEME_ACTION,
   theme,
+});
+
+export const changeThemeRequest = () => ({
+  type: ACTION_TYPES.CHANGE_THEME_REQUEST,
+});
+
+export const changeThemeSuccess = theme => ({
+  type: ACTION_TYPES.CHANGE_THEME_SUCCESS,
+  theme,
+});
+
+export const changeThemeError = error => ({
+  type: ACTION_TYPES.CHANGE_THEME_ERROR,
+  error,
 });

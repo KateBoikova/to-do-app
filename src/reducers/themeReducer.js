@@ -1,7 +1,8 @@
 import ACTION_TYPES from '../actions/actionTypes';
+import CONSTANTS from '../constants/index';
 
 const initialState = {
-  theme: [],
+  theme: CONSTANTS.THEMES.BEIGE,
   isFetching: false,
   error: null,
 };
@@ -19,11 +20,11 @@ function themeReducer (state = initialState, action) {
 
     case ACTION_TYPES.CHANGE_THEME_SUCCESS: {
       const { theme } = action;
-      const newTheme = theme;
       return {
         ...state,
-        theme: newTheme,
+        theme,
         isFetching: false,
+        error: null,
       };
     }
     case ACTION_TYPES.CHANGE_THEME_ERROR: {
@@ -33,6 +34,9 @@ function themeReducer (state = initialState, action) {
         isFetching: false,
         error,
       };
+    }
+    default: {
+      return state;
     }
   }
 }

@@ -18,11 +18,15 @@ function ToDoPage (props) {
       backgroundColor: '#ffe2d7',
     },
   };
-
   return (
     <ThemeContext.Provider value={theme}>
       <div className={styles.formContainer} style={styleMap[theme]}>
-        <button className={styles.themeButton} onClick={changeTheme}>
+        <button
+          className={styles.themeButton}
+          onClick={() => {
+            changeTheme(theme);
+          }}
+        >
           Change theme
         </button>
         <ToDoForm />
@@ -35,8 +39,8 @@ function ToDoPage (props) {
     </ThemeContext.Provider>
   );
 }
-const mapStateToProps = state => state.todo;
+const mapStateToProps = state => ({ ...state.todo, ...state.theme });
 const mapDispatchToProps = dispatch => {
-  return { changeTheme: () => dispatch(changeThemeAction()) };
+  return { changeTheme: theme => dispatch(changeThemeAction(theme)) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoPage);

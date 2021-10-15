@@ -1,5 +1,8 @@
 import { put } from 'redux-saga/effects';
 import {
+  changeThemeSuccess,
+  changeThemeError,
+  changeThemeRequest,
   createTaskError,
   createTaskRequest,
   createTaskSuccess,
@@ -50,11 +53,20 @@ export function * deleteTaskSaga (action) {
   const { id } = action;
   yield put(deleteTaskRequest());
   try {
-    const { data: deletedTask } = yield API.deleteTask(id);
-    yield put(deleteTaskSuccess(deletedTask));
+    yield API.deleteTask(id);
+    yield put(deleteTaskSuccess(id));
   } catch (e) {
     yield put(deleteTaskError(e));
   }
 }
 
-export function * changeThemeSaga () {}
+export function * changeThemeSaga (action) {
+  const { theme } = action;
+  yield put(changeThemeRequest());
+  try {
+    const { data: newTheme } = yield API.changeTheme(theme);
+    yield put(changeThemeSuccess(newTheme));
+  } catch (error) {
+    yield put(changeThemeError(error));
+  }
+}

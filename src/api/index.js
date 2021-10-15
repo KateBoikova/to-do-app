@@ -1,4 +1,5 @@
 import axios from 'axios';
+import CONSTANTS from '../constants';
 
 const axiosOptions = {
   baseUrl: 'http://127.0.0.1:3000/api',
@@ -25,11 +26,18 @@ export const createTask = task => {
 };
 
 export const deleteTask = id => {
-  const index = tasks.findIndex(t => t.id === id);
-  const deleteTask = tasks[index];
-  return Promise.resolve({ data: tasks.splice(index, 1) });
+  return Promise.resolve();
 };
 
 export const updateTask = id => {
   const index = tasks.findIndex(t => id === t.id);
+  let updatedTask = tasks[index];
+  updatedTask.isDone = !updatedTask.isDone;
+  return Promise.resolve({ data: { ...updatedTask } });
+};
+
+export const changeTheme = theme => {
+  const { BEIGE, BLACK } = CONSTANTS.THEMES;
+  const newTheme = theme === BEIGE ? BLACK : BEIGE;
+  return Promise.resolve({ data: newTheme });
 };
